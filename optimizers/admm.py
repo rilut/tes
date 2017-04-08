@@ -1,5 +1,4 @@
-mport numpy as np
-import matplotlib.pyplot as plt
+import numpy as np
 from math import sqrt, log
 
 def ADMM(A, y):
@@ -64,6 +63,7 @@ def test(m=50, n=200):
 
 def plot(original, computed):
     """Plot two vectors to compare their values"""
+    import matplotlib.pyplot as plt
     plt.plot(original, label='Original')
     plt.plot(computed, label='Estimate')
 
