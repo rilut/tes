@@ -11,12 +11,12 @@ class Optimizer_1(Adam):
         lr_t = self.lr * K.sqrt(1. - K.pow(self.beta_2, t)) / (1. - K.pow(self.beta_1, t))
 
         ms = [K.variable(np.zeros(K.get_value(p).shape)) for p in params]
-        self.weights = ms #+ vs
+        self.weights = ms
 
         for p, g, m in zip(params, grads, ms):
             m_t = (self.beta_1 * m) + (1. - self.beta_1) * g
             clipvalue = 0.0001
-            p_t = p - K.exp(K.sign(g) * K.sign(m)) + K.clip(g, -clipvalue, clipvalue) * g
+            p_t = p - (K.exp(K.sign(g) * K.sign(m_t)) + K.clip(g, -clipvalue, clipvalue) * g)
 
             self.updates.append((m, m_t))
 
