@@ -1,3 +1,6 @@
+from keras.optimizers import Adam
+import keras.backend as K
+
 class Optimizer_1(Adam):
     ''''''
     def get_updates(self, params, constraints, loss):
