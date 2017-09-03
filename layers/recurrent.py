@@ -24,23 +24,14 @@ class HighwayLSTM(LSTM):
 
     def build(self, input_shape):
         super(HighwayLSTM, self).build(input_shape)
-        self.input_spec = [InputSpec(shape=input_shape)]
-        input_dim = input_shape[2]
-        self.input_dim = input_dim
 
-        if self.stateful:
-            self.reset_states()
-        else:
-            # initial states: 2 all-zero tensors of shape (output_dim)
-            self.states = [None, None]
-
-        self.W_r = self.init((input_dim, self.output_dim),
+        self.W_r = self.init((self.input_dim, self.output_dim),
                              name='{}_W_r'.format(self.name))
         self.U_r = self.inner_init((self.output_dim, self.output_dim),
                                    name='{}_U_r'.format(self.name))
         self.b_r = K.zeros((self.output_dim,), name='{}_b_r'.format(self.name))
 
-        self.W_h = self.init((input_dim, self.output_dim),
+        self.W_h = self.init((self.input_dim, self.output_dim),
                              name='{}_W_h'.format(self.name))
         self.U_h = self.inner_init((self.output_dim, self.output_dim),
                                    name='{}_U_h'.format(self.name))
